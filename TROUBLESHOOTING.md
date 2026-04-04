@@ -363,6 +363,58 @@ Guia prático com os problemas encontrados durante as execuções e as soluçõe
 
 ---
 
+## 15) Erro ao gerar dashboard HTML do JMeter (`-e -o`)
+
+### Sintoma
+- A execução non-GUI falha ao gerar relatório HTML.
+- Mensagem comum: diretório de saída já existe ou não está vazio.
+
+### Causa provável
+- A pasta definida em `-o` já continha arquivos de execução anterior.
+
+### Solução aplicada
+- Padronização de limpeza da pasta antes da execução:
+  - Linux/macOS: `rm -rf results/<cenario>/report`
+  - Windows PowerShell: `Remove-Item -Recurse -Force ...`
+- Manutenção de diretório dedicado por cenário (`load` e `spike`).
+
+### Status
+- Resolvido.
+
+---
+
+## 16) Alto consumo de memória ao executar JMeter na GUI
+
+### Sintoma
+- Lentidão, travamentos ou `OutOfMemoryError` durante execução com interface gráfica.
+
+### Causa provável
+- Listeners de alto consumo ativos (ex.: `View Results Tree`) durante testes com alto volume.
+
+### Solução aplicada
+- Manter listeners pesados desabilitados no plano (`enabled="false"`).
+- Executar carga oficial em modo non-GUI.
+- Ajustar heap JVM quando necessário com `HEAP`.
+
+### Comandos úteis
+
+Linux/macOS:
+
+```bash
+export HEAP="-Xms1g -Xmx4g -XX:+UseG1GC"
+```
+
+Windows (PowerShell):
+
+```powershell
+$env:HEAP="-Xms1g -Xmx4g -XX:+UseG1GC"
+```
+
+### Status
+- Mitigado com boas práticas de execução.
+
+---
+
 ## Comandos rápidos para reproduzir
 
 ### Linux/macOS

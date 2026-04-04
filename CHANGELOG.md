@@ -4,6 +4,26 @@ Todas as mudanças relevantes deste ciclo de evolução do projeto foram documen
 
 ---
 
+## [Unreleased] - 2026-04-04 — Boas práticas de performance com JMeter
+
+### Added
+- Novo plano `testes-carga-pico/site-de-viagens.jmx` incorporado como baseline de carga e pico, com variáveis globais por `__P(...)`.
+- `testes-carga-pico/JMETER.md` ampliado com orientações práticas de:
+  - configuração de `jmeter.properties` para reduzir consumo de recursos;
+  - geração do relatório HTML (`-e -o`) com diretórios dedicados;
+  - uso de variáveis globais por linha de comando (`-J...`) alinhadas ao `site-de-viagens.jmx`;
+  - ajuste de memória heap (`HEAP`) para execuções de maior carga;
+  - uso do plugin Ultimate Thread Group para modelagem avançada de concorrência.
+- `testes-carga-pico/GUIA-RAPIDO-EXECUCAO.md` sincronizado com links para boas práticas e checklist rápido de GUI.
+- `KNOWLEGDE.md` recebeu seção de fundamentos de performance com JMeter no contexto do projeto.
+- `TROUBLESHOOTING.md` recebeu novos cenários de falha para dashboard HTML (`-e -o`) e consumo de memória na GUI.
+
+### Changed
+- `README.md` atualizado para conectar as diretrizes de performance (propriedades, relatório, variáveis globais, heap e GUI) com o fluxo principal da documentação.
+- `README.md` e `testes-carga-pico/JMETER.md` atualizados com a estrutura operacional do novo JMX (thread groups, timers e listeners).
+
+---
+
 ## [Unreleased] - 2026-04-04 — Sincronização geral das documentações
 
 ### Added

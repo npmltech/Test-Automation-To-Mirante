@@ -2,6 +2,8 @@
 
 Guia curto para rodar os testes de carga e pico, com comandos diretos por sistema operacional.
 
+Para detalhes avançados (boas práticas de `jmeter.properties`, relatório HTML, variáveis `-J`, heap, GUI e Ultimate Thread Group), consulte `JMETER.md`.
+
 ## Passo 1) Validar o JMeter
 
 *Para baixar e validar o JMeter, siga as instruções em [JMETER.md](./JMETER.md#instalar-e-validar-o-jmeter).*
@@ -19,6 +21,15 @@ Windows (PowerShell):
 ```
 
 ## Passo 2) Rodar os testes
+
+Perfis deste guia:
+
+- **Carga**: mantém volume sustentado.
+- **Pico**: aplica aumento abrupto após atraso configurado.
+
+Parâmetros globais do plano (via CLI):
+
+- `baseUrl`, `loadThreads`, `loadRampUp`, `loadDuration`, `spikeThreads`, `spikeDelay`, `spikeDuration`, `spikeRampUp`.
 
 Linux/macOS:
 
@@ -39,6 +50,11 @@ Remove-Item -Recurse -Force .\results\load\report, .\results\spike\report -Error
 ```
 
 ## Passo 3) Abrir os relatórios
+
+Antes de abrir, valide se o relatório foi gerado em:
+
+- `results/load/report/index.html`
+- `results/spike/report/index.html`
 
 Linux:
 
@@ -76,4 +92,10 @@ Windows (PowerShell):
 ```
 
 Na interface, abra `site-de-viagens.jmx` em `File > Open`.
+
+Boas práticas rápidas na GUI:
+
+1. Mantenha listeners pesados desabilitados durante testes longos.
+2. Use GUI apenas para depuração e modelagem do plano.
+3. Para execução oficial, prefira sempre non-GUI.
 

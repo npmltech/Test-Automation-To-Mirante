@@ -2,7 +2,7 @@
 
 Data: 2026-04-04
 Alvo: https://www.blazedemo.com
-Plano utilizado: Teste-no-Site-de-ViAGENS.jmx
+Plano utilizado: site-de-viagens.jmx
 
 ## Cenários executados
 
@@ -45,3 +45,10 @@ Critério de Aceitação:
 
 O critério de aceitação NÃO foi satisfatório para o cenário de compra de passagem quando avaliado pelo p90 < 2s.
 Mesmo com vazão acima do mínimo exigido, a latência de p90 invalida a aprovação do teste.
+
+## Referência operacional
+
+Para reproduzir os cenários com boas práticas de execução, consulte:
+
+- `testes-carga-pico/JMETER.md`
+
