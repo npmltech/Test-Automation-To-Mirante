@@ -265,7 +265,7 @@ Leitura detalhada (BDD, Cucumber, Page Object, Register, MVC/BO/Error, Builder):
 ### Comando principal do desafio
 
 ```bash
-./mvnw verify -Dcucumber.filter.tags="@agi_blog and @dog_api" -Dheadless=true
+./mvnw verify -Dcucumber.filter.tags="@agi_blog or @dog_api" -Dheadless=true
 ```
 
 ### Formatação
@@ -333,15 +333,11 @@ Também é possível habilitar headless no arquivo de propriedades (`headless=tr
 ./mvnw verify -Dcucumber.filter.tags="@ui_cn_d5" -Dheadless=true
 ```
 
-### Comando principal do desafio
-
-Este é o comando que executa o desafio técnico proposto (Dog API + Blog do Agi):
+Esse é o comando principal do desafio técnico (Dog API + Blog do Agi):
 
 ```bash
 ./mvnw verify -Dcucumber.filter.tags="@agi_blog or @dog_api" -Dheadless=true
 ```
-
-Ele executa todos os cenários da Dog API e do Blog do Agi em modo headless.
 
 ---
 
@@ -354,6 +350,16 @@ Arquivo do workflow:
 
 - `push` apenas na branch `main`
 - `pull_request`
+
+### Ações e compatibilidade de runtime
+
+- `actions/checkout@v5`
+- `actions/setup-java@v5`
+- `actions/upload-artifact@v4`
+- Variável de compatibilidade ativa no workflow:
+  - `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true`
+
+Essa configuração mantém o pipeline compatível com a transição de runtime JavaScript do GitHub Actions para Node.js 24.
 
 ### O que o pipeline executa
 

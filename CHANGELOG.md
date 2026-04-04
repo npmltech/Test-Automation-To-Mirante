@@ -4,6 +4,19 @@ Todas as mudanças relevantes deste ciclo de evolução do projeto foram documen
 
 ---
 
+## [Unreleased] - 2026-04-04 — Sincronização geral das documentações
+
+### Changed
+- `README.md` sincronizado com o estado atual do projeto:
+  - comando principal do desafio padronizado com `@agi_blog or @dog_api`;
+  - seção de CI atualizada com versões das actions (`checkout@v5`, `setup-java@v5`, `upload-artifact@v4`);
+  - documentação da variável `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true`.
+- `KNOWLEGDE.md` atualizado com seção técnica de CI (`GitHub Actions`), incluindo gatilhos, jobs, ações utilizadas e artefatos publicados.
+- `TROUBLESHOOTING.md` ampliado com o incidente de depreciação do Node.js 20 no GitHub Actions e a mitigação adotada no workflow.
+- Tags de owner do Allure padronizadas para `@allure.label.owner:qualidade` nas features de API e UI.
+
+---
+
 ## [Unreleased] - 2026-04-04 — CI com GitHub Actions para Dog API e AgiBlog
 
 ### Added

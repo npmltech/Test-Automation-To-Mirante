@@ -335,3 +335,36 @@ Se preferir, também pode configurar no arquivo:
 
 Com isso, você consegue implementar cenários novos mantendo o mesmo padrão do projeto.
 
+---
+
+## 13) CI com GitHub Actions (pipeline do projeto)
+
+Arquivo:
+- `.github/workflows/tests-api-web.yml`
+
+### Quando executa
+- `push` na branch `main`
+- `pull_request`
+
+### Jobs da pipeline
+- `api-dog`
+  - Executa: `./mvnw verify -Dcucumber.filter.tags="@dog_api"`
+- `web-agi-blog`
+  - Executa: `./mvnw verify -Dcucumber.filter.tags="@agi_blog" -Dheadless=true`
+
+### Actions utilizadas
+- `actions/checkout@v5`
+- `actions/setup-java@v5`
+- `actions/upload-artifact@v4`
+
+### Compatibilidade de runtime JavaScript das actions
+- A pipeline define `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true`.
+- Essa variável garante compatibilidade com a migração dos runners do GitHub Actions para Node.js 24.
+
+### Artefatos publicados ao final dos jobs
+- `target/allure-results`
+- `target/site/allure-maven-plugin`
+- `target/cluecumber-reports`
+- `target/cucumber-reports`
+
+Esses artefatos ajudam a analisar falhas sem depender de reprodução local imediata.
