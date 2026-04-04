@@ -6,6 +6,25 @@ Todas as mudanças relevantes deste ciclo de evolução do projeto foram documen
 
 ## [Unreleased] - 2026-04-03 — Padronização PT-BR e revisão documental
 
+## [Unreleased] - 2026-04-03 — Comando principal e labels Allure no Gherkin
+
+### Changed
+- `README.md` ajustado para manter o **Comando principal do desafio** somente na seção `Comandos de execução`.
+- Seção de configuração no `README.md` ampliada com padrão de tags `@allure.label.*` para uso em `.feature`.
+- `TROUBLESHOOTING.md` atualizado com orientação sobre coexistência de tags funcionais e labels do Allure.
+- `KNOWLEGDE.md` atualizado com convenção prática de labels Allure via Gherkin.
+
+### Added
+- Labels Allure adicionadas em todas as features de API e UI em `src/test/resources/features/**`:
+  - `@allure.label.owner`
+  - `@allure.label.epic`
+  - `@allure.label.feature`
+  - `@allure.label.story`
+  - `@allure.label.severity`
+
+### Fixed
+- `WebHook` e `CucumberRunner` tornados mais robustos para cenários com tags adicionais (`@allure.label.*`), evitando dependência da ordem de tags para setup/teardown Web.
+
 ### Changed
 - `README.md` atualizado para refletir o estado atual do projeto com maior precisão:
   - comandos de execução por tags ajustados para as tags realmente existentes nas features;

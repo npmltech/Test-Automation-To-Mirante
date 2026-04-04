@@ -262,6 +262,12 @@ Leitura detalhada (BDD, Cucumber, Page Object, Register, MVC/BO/Error, Builder):
 
 ## Comandos de execução (juntos e separados)
 
+### Comando principal do desafio
+
+```bash
+./mvnw verify -Dcucumber.filter.tags="@agi_blog and @dog_api" -Dheadless=true
+```
+
 ### Formatação
 
 ```bash
@@ -306,6 +312,20 @@ Observação:
 ```
 
 Também é possível habilitar headless no arquivo de propriedades (`headless=true`) sem passar `-Dheadless=true` no comando.
+
+### Combinar tags (AND/OR)
+
+```bash
+./mvnw verify -Dcucumber.filter.tags="@agi_blog and @dog_api" -Dheadless=true
+```
+
+- A expressão `and` executa apenas cenários que tenham as duas tags ao mesmo tempo.
+- No estado atual do projeto, `@agi_blog` e `@dog_api` estão em suítes diferentes, então esse filtro pode retornar `0 Scenarios`.
+- Para executar cenários de uma tag ou outra no mesmo comando, use:
+
+```bash
+./mvnw verify -Dcucumber.filter.tags="@agi_blog or @dog_api" -Dheadless=true
+```
 
 ### Rodar um cenário específico por tag de cenário
 
@@ -366,6 +386,24 @@ headless=false
   - linhas iniciadas por `Dado`, `Quando`, `Então` e `E`
 
 Essas linhas são associadas diretamente aos métodos anotados nas Step Definitions. Se o texto do passo mudar, o Cucumber pode deixar de encontrar a implementação em Java.
+
+### Tags Allure no Gherkin
+
+- O projeto usa labels do Allure diretamente nas tags dos cenários (`.feature`).
+- Padrão aplicado:
+  - `@allure.label.owner:...`
+  - `@allure.label.epic:...`
+  - `@allure.label.feature:...`
+  - `@allure.label.story:...`
+  - `@allure.label.severity:critical|normal|minor|trivial|blocker`
+- Exemplo:
+
+```gherkin
+@ui_cn_d1 @allure.label.severity:critical @allure.label.story:ui_cn_d1
+Cenário: Pesquisar por um termo válido e exibir artigos relacionados
+```
+
+- Recomendação: mantenha as tags funcionais (`@api`, `@dog_api`, `@ui`, `@agi_blog`) para filtragem de execução e use as tags `@allure.label.*` para enriquecer relatórios.
 
 ### `urls.json`
 

@@ -283,6 +283,56 @@ Guia prático com os problemas encontrados durante as execuções e as soluçõe
 
 ---
 
+## 12) Execução com `@agi_blog and @dog_api` retorna `0 Scenarios`
+
+### Sintoma
+- Comando executa com `BUILD SUCCESS`, porém sem cenários executados:
+  - `0 Scenarios`
+  - `Tests run: 0`
+
+### Causa provável
+- Em expressões de tag do Cucumber, `and` exige que o mesmo cenário tenha todas as tags informadas.
+- No projeto atual, `@agi_blog` (Web) e `@dog_api` (API) estão em features diferentes.
+
+### Solução aplicada
+- Documentação atualizada com o comando solicitado e explicação do comportamento.
+- Para rodar os dois grupos no mesmo comando, usar `or`:
+
+```bash
+./mvnw verify -Dcucumber.filter.tags="@agi_blog or @dog_api" -Dheadless=true
+```
+
+### Evidência de falha no Cluecumber
+- Resumo com cenários falhos: `target/cluecumber-reports/pages/scenario-summary.html`
+  - `2 failed Scenarios` (ex.: `scenario_6.html` e `scenario_8.html`).
+- Detalhe da falha com stacktrace: `target/cluecumber-reports/pages/scenario-detail/scenario_6.html`
+  - `org.opentest4j.AssertionFailedError` no step de validação de títulos.
+- Screenshot anexado no relatório: `target/cluecumber-reports/attachments/attachment001.png`
+
+### Status
+- Conhecido / comportamento esperado da sintaxe de tags do Cucumber.
+
+---
+
+## 13) Labels Allure em `.feature` sem impacto no filtro funcional
+
+### Sintoma
+- Após adicionar tags `@allure.label.*`, há dúvida se a execução por tags funcionais continua estável.
+
+### Causa provável
+- Mistura de tags funcionais (ex.: `@ui`, `@dog_api`) com tags de metadados de relatório (ex.: `@allure.label.severity:critical`).
+
+### Solução aplicada
+- Mantida separação de responsabilidades:
+  - tags funcionais para filtro de execução (`-Dcucumber.filter.tags=...`);
+  - tags `@allure.label.*` para enriquecimento de relatórios Allure/Cluecumber.
+- Ajuste no hook de execução para identificar cenários UI pelo conjunto de tags do cenário, sem depender da ordem de leitura das tags.
+
+### Status
+- Resolvido.
+
+---
+
 ## Comandos rápidos para reproduzir
 
 ### Linux/macOS
