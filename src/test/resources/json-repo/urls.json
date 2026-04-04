@@ -1,0 +1,8 @@
+{
+	"google": "https://www.google.com",
+	"my_heroku_api_url": "https://demo-spring-boot-npml.herokuapp.com/",
+	"star_wars_url": "https://swapi.dev/api/",
+	"todo_list": "https://todomvc-socketstream.herokuapp.com",
+	"agi_blog": "https://blogdoagi.com.br/",
+	"dog_api_url": "https://dog.ceo/api/"
+}
