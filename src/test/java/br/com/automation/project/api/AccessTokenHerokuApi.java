@@ -21,7 +21,7 @@ public class AccessTokenHerokuApi {
         LOGGER.info("[AccessTokenHerokuApi] POST /api/auth/signin com credenciais do arquivo JSON.");
         Map<String, Object> credencials = new HashMap<>();
         credencials.putAll(ManagerFileUtils.getParamsFromJson("src/test/resources/json-repo/password.json"));
-        RestAssured.baseURI = ManagerFileUtils.getUrlFromJson("My_Heroku_API_Url");
+        RestAssured.baseURI = ManagerFileUtils.getUrlFromJson("my_heroku_api_url");
         RequestSpecification request = RestAssured.given().header("Accept", ContentType.JSON.getAcceptHeader())
             .contentType(ContentType.JSON).body(credencials);
         Response response = request.when().post("api/auth/signin");
@@ -36,7 +36,7 @@ public class AccessTokenHerokuApi {
         Map<String, Object> credencials = new HashMap<>();
         credencials.put("username", username);
         credencials.put("password", password);
-        RestAssured.baseURI = ManagerFileUtils.getUrlFromJson("My_Heroku_API_Url");
+        RestAssured.baseURI = ManagerFileUtils.getUrlFromJson("my_heroku_api_url");
         RequestSpecification request = RestAssured.given().header("Accept", ContentType.JSON.getAcceptHeader())
             .contentType(ContentType.JSON).body(credencials);
         Response response = request.when().post("api/auth/signin");

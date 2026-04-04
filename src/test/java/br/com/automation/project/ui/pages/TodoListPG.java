@@ -19,7 +19,7 @@ public class TodoListPG extends LoadableComponent<TodoListPG> {
     }
 
     public void getTodoUrl() {
-        this.driver.get(ManagerFileUtils.getUrlFromJson("TodoList"));
+        this.driver.get(ManagerFileUtils.getUrlFromJson("todo_list"));
     }
 
     @CacheLookup

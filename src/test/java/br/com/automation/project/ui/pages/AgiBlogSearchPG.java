@@ -16,6 +16,7 @@ import java.net.URLEncoder;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class AgiBlogSearchPG extends LoadableComponent<AgiBlogSearchPG> {
@@ -23,7 +24,8 @@ public class AgiBlogSearchPG extends LoadableComponent<AgiBlogSearchPG> {
     private static final By SEARCH_TOGGLE_BUTTON = By.cssSelector("div.ast-search-menu-icon button.ast-search-submit");
     private static final By SEARCH_FIELD = By.cssSelector("input#search-field.search-field");
     private static final By RESULTS_TITLE = By.cssSelector("h1.page-title");
-    private static final By RESULT_LINKS = By.cssSelector("h2.entry-title a");
+    private static final List<By> RESULT_LINK_SELECTORS = Arrays.asList(By.cssSelector("article h2.entry-title a"),
+        By.cssSelector("h2.entry-title a"), By.cssSelector("h2.wp-block-post-title a"));
 
     private final WebDriver driver;
 
@@ -32,7 +34,7 @@ public class AgiBlogSearchPG extends LoadableComponent<AgiBlogSearchPG> {
     }
 
     public void accessAgiBlog() {
-        this.driver.get(ManagerFileUtils.getUrlFromJson("Agi_Blog"));
+        this.driver.get(ManagerFileUtils.getUrlFromJson("agi_blog"));
     }
 
     public void searchFor(String termo) {
@@ -52,12 +54,23 @@ public class AgiBlogSearchPG extends LoadableComponent<AgiBlogSearchPG> {
     }
 
     public List<WebElement> getResultLinks() {
-        return this.driver.findElements(RESULT_LINKS);
+        for (By selector : RESULT_LINK_SELECTORS) {
+            List<WebElement> links = this.driver.findElements(selector);
+            if (!links.isEmpty()) {
+                return links;
+            }
+        }
+        return List.of();
     }
 
     public List<String> getResultTitles() {
         List<String> titles = new ArrayList<>();
-        getResultLinks().forEach(link -> titles.add(link.getText()));
+        getResultLinks().forEach(link -> {
+            String title = extractTitle(link);
+            if (!title.isBlank()) {
+                titles.add(title);
+            }
+        });
         return titles;
     }
 
@@ -113,13 +126,35 @@ public class AgiBlogSearchPG extends LoadableComponent<AgiBlogSearchPG> {
 
     private void navigateToSearchResults(String termo) {
         String encodedTerm = URLEncoder.encode(termo, StandardCharsets.UTF_8);
-        String primaryUrl = String.format("%s?s=%s", ManagerFileUtils.getUrlFromJson("Agi_Blog"), encodedTerm);
+        String primaryUrl = String.format("%s?s=%s", ManagerFileUtils.getUrlFromJson("agi_blog"), encodedTerm);
         String canonicalUrl = String.format("https://blog.agibank.com.br/?s=%s", encodedTerm);
         try {
             this.driver.navigate().to(primaryUrl);
         } catch (RuntimeException ex) {
             this.driver.navigate().to(canonicalUrl);
         }
+    }
+
+    private String extractTitle(WebElement link) {
+        List<String> candidates = Arrays.asList(link.getText(), link.getAttribute("title"),
+            link.getAttribute("aria-label"), link.getAttribute("innerText"), link.getAttribute("textContent"));
+        for (String candidate : candidates) {
+            if (candidate != null) {
+                String normalized = candidate.replaceAll("\\s+", " ").trim();
+                if (!normalized.isBlank()) {
+                    return normalized;
+                }
+            }
+        }
+        String href = link.getAttribute("href");
+        if (href != null && !href.isBlank()) {
+            String[] tokens = href.replaceAll("/$", "").split("/");
+            String slug = tokens[tokens.length - 1].replace("-", " ").trim();
+            if (!slug.isBlank()) {
+                return slug;
+            }
+        }
+        return "";
     }
 
     @Override

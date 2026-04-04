@@ -4,6 +4,25 @@ Todas as mudanças relevantes deste ciclo de evolução do projeto foram documen
 
 ---
 
+## [Unreleased] - 2026-04-04 — Normalização de chaves JSON, robustez de seletores e refatoração de pom
+
+### Fixed
+- Chaves de URL normalizadas para minúsculas em todas as classes que referenciam `urls.json`, alinhando o código com as chaves reais definidas no arquivo:
+  - `AccessTokenHerokuApi`: `"My_Heroku_API_Url"` → `"my_heroku_api_url"`.
+  - `PersonApi.deletePersonById`: `"My_Heroku_API_Url"` → `"my_heroku_api_url"`.
+  - `AgiBlogSearchPG.accessAgiBlog` e `navigateToSearchResults`: `"Agi_Blog"` → `"agi_blog"`.
+  - `TodoListPG.getTodoUrl`: `"TodoList"` → `"todo_list"`.
+- `WebHook`: substituído `Set<String>` por `Collection<String>` para `sourceTags`, corrigindo o tipo de retorno de `Scenario.getSourceTagNames()` e evitando cast silencioso.
+
+### Improved
+- `AgiBlogSearchPG`: seletores de resultados de busca reescritos com múltiplos fallbacks CSS (`article h2.entry-title a`, `h2.entry-title a`, `h2.wp-block-post-title a`) para maior resiliência contra variações de tema WordPress.
+- `AgiBlogSearchPG`: adicionado método privado `extractTitle(WebElement)` com extração progressiva de título via `getText()`, atributos `title`, `aria-label`, `innerText`, `textContent` e fallback via slug de `href`.
+
+### Changed
+- `pom.xml`: migração de `<systemProperties>` (formato legado) para `<systemPropertyVariables>` (formato recomendado do Maven Surefire) na configuração do `maven-surefire-plugin`. Adicionada variável `<cucumber.filter.tags>` para passar filtro de tag via linha de comando.
+
+---
+
 ## [Unreleased] - 2026-04-03 — Correção do comando principal do desafio
 
 ### Changed
