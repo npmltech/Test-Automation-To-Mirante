@@ -11,13 +11,14 @@ Este diretório contém o plano `site-de-viagens.jmx` para validar o fluxo de co
 ## Pré-requisitos
 
 - Java 11 ou superior (recomendado: Java 17+)
-- JMeter 5.6.3 (este repositório já possui `apache-jmeter.tgz`)
+- JMeter 5.6.3
 
 ## Instalar e validar o JMeter
 
 No diretório `testes-carga-pico`:
 
 ```bash
+curl -L -o apache-jmeter.tgz https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.6.3.tgz
 tar -xzf apache-jmeter.tgz
 ./apache-jmeter-5.6.3/bin/jmeter -v
 ```
@@ -25,6 +26,7 @@ tar -xzf apache-jmeter.tgz
 No Windows (PowerShell):
 
 ```powershell
+Invoke-WebRequest -Uri "https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.6.3.tgz" -OutFile ".\apache-jmeter.tgz"
 tar -xzf .\apache-jmeter.tgz
 .\apache-jmeter-5.6.3\bin\jmeter.bat -v
 ```
@@ -95,4 +97,17 @@ Para usar a GUI do JMeter, consulte `GUIDE-GUI-JMETER.md`.
 ## Guia rápido
 
 Para comandos objetivos em poucos passos, consulte `GUIA-RAPIDO-EXECUCAO.md`.
+
+## Execução no GitHub Actions
+
+O workflow `.github/workflows/tests-api-web.yml` também executa o plano `site-de-viagens.jmx` automaticamente no job `jmeter-blazedemo`.
+
+Artefatos publicados no CI:
+
+- `testes-carga-pico/results/ci-load/results.jtl`
+- `testes-carga-pico/results/ci-load/jmeter.log`
+- `testes-carga-pico/results/ci-load/report`
+- `testes-carga-pico/results/ci-spike/results.jtl`
+- `testes-carga-pico/results/ci-spike/jmeter.log`
+- `testes-carga-pico/results/ci-spike/report`
 
