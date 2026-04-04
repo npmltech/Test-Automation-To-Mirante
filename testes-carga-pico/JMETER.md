@@ -92,7 +92,27 @@ Start-Process .\results\spike\report\index.html
 
 ## Execução com interface gráfica
 
-Para usar a GUI do JMeter, consulte `GUIDE-GUI-JMETER.md`.
+Use sempre os comandos a partir da pasta `testes-carga-pico`.
+
+Linux/macOS:
+
+```bash
+./apache-jmeter-5.6.3/bin/jmeter
+```
+
+Windows (PowerShell):
+
+```powershell
+.\apache-jmeter-5.6.3\bin\jmeter.bat
+```
+
+Passos na interface:
+
+1. Abra `File > Open`.
+2. Selecione `site-de-viagens.jmx`.
+3. Ajuste os parâmetros no `User Defined Variables`, se necessário.
+4. Execute em `Run > Start`.
+5. Analise os listeners configurados no plano.
 
 ## Guia rápido
 
