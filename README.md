@@ -72,6 +72,21 @@ Para execução e análise dos cenários de carga/pico, use estes atalhos:
 - Plano de teste JMeter (arquivo `.jmx`): `testes-carga-pico/site-de-viagens.jmx`
 - Exemplo de relatório consolidado: `testes-carga-pico/results/relatorio-execucao-blazedemo-20260404.md`
 
+O novo plano `site-de-viagens.jmx` já está incorporado com dois perfis no mesmo arquivo:
+
+- `TG - Carga Sustentada 250 RPS`
+- `TG - Teste Pico +250 RPS`
+
+Também foi mantida a configuração recomendada para execução em non-GUI, com listeners de alto consumo desabilitados por padrão.
+
+Boas práticas já documentadas no guia principal:
+
+- configuração segura do `jmeter.properties` para reduzir consumo de disco/memória;
+- geração de relatório HTML com `-e -o` em diretórios dedicados por execução;
+- uso de variáveis globais via `-J...` alinhadas ao `User Defined Variables` do plano;
+- ajuste de heap (`HEAP`) para testes mais pesados;
+- uso da GUI apenas para depuração, com listeners pesados desabilitados.
+
 ---
 
 ## Stack e versões
@@ -383,6 +398,7 @@ Essa configuração mantém o pipeline compatível com a transição de runtime 
 - Job `jmeter-blazedemo`
   - Comando: execução do arquivo `testes-carga-pico/site-de-viagens.jmx` em modo non-GUI no runner Ubuntu.
   - Objetivo: validar o plano de carga/pico e gerar artefatos de performance no CI.
+  - Parâmetros: controle de carga por variáveis `-J` para manter reprodutibilidade do plano.
 
 ### Artefatos publicados no GitHub Actions
 
@@ -488,6 +504,39 @@ Arquivo: `src/test/resources/json-repo/urls.json`
   "dog_api_url": "https://dog.ceo/api/"
 }
 ```
+
+### JMeter: parâmetros globais e memória
+
+Arquivo principal:
+
+- `testes-carga-pico/site-de-viagens.jmx`
+
+Esse plano recebe parâmetros por propriedades (`__P`) e pode ser controlado por linha de comando via:
+
+- `-JbaseUrl`
+- `-JloadThreads`
+- `-JloadRampUp`
+- `-JloadDuration`
+- `-JspikeThreads`
+- `-JspikeRampUp`
+- `-JspikeDelay`
+- `-JspikeDuration`
+
+Exemplo de ajuste de heap para execução pesada:
+
+```bash
+export HEAP="-Xms1g -Xmx4g -XX:+UseG1GC"
+```
+
+No Windows PowerShell:
+
+```powershell
+$env:HEAP="-Xms1g -Xmx4g -XX:+UseG1GC"
+```
+
+Guia completo com boas práticas de `jmeter.properties`, relatório HTML e Ultimate Thread Group:
+
+- `testes-carga-pico/JMETER.md`
 
 ---
 

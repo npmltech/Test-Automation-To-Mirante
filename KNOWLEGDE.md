@@ -368,3 +368,65 @@ Arquivo:
 - `target/cucumber-reports`
 
 Esses artefatos ajudam a analisar falhas sem depender de reprodução local imediata.
+
+---
+
+## 14) Fundamentos de performance com JMeter neste projeto
+
+Arquivo de referência:
+
+- `testes-carga-pico/site-de-viagens.jmx`
+
+### Como o plano foi modelado
+
+- O plano usa `User Defined Variables` no `Test Plan`.
+- Cada variável é lida com `__P(...)`, permitindo sobrescrita por CLI (`-J...`).
+- Existem dois grupos de carga: sustentada e pico.
+
+### Variáveis globais (CLI)
+
+As propriedades abaixo controlam a execução sem editar o JMX:
+
+- `baseUrl`
+- `loadThreads`
+- `loadRampUp`
+- `loadDuration`
+- `spikeThreads`
+- `spikeRampUp`
+- `spikeDelay`
+- `spikeDuration`
+
+Boas práticas:
+
+1. Versione os comandos executados no histórico de CI/README.
+2. Não altere nomes de propriedades sem atualizar JMX e documentação.
+3. Mantenha defaults estáveis no JMX e perfil de carga no comando.
+
+### Relatório HTML
+
+- O dashboard é gerado com `-e -o <pasta>`.
+- A pasta de saída precisa estar vazia.
+- O conjunto mínimo de evidências é: `results.jtl`, `jmeter.log` e `report/`.
+
+### Heap e estabilidade
+
+- Para cenários mais pesados, ajuste `HEAP` antes de executar.
+- Exemplo comum: `-Xms1g -Xmx4g -XX:+UseG1GC`.
+- Ajuste gradualmente, observando CPU e GC.
+
+### GUI x Non-GUI
+
+- GUI: modelagem e depuração.
+- Non-GUI: execução oficial (mais estável e mais econômica).
+- Listeners pesados devem permanecer desabilitados em testes longos.
+
+### Ultimate Thread Group
+
+- Recomendado para perfis de carga em múltiplas fases.
+- Útil quando o `Thread Group` padrão não representa bem a curva de acesso.
+- Deve ser instalado via Plugins Manager (`Custom Thread Groups`).
+
+Guia operacional completo:
+
+- `testes-carga-pico/JMETER.md`
+
