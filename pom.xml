@@ -375,17 +375,9 @@
           -->
           <forkCount>3</forkCount>
           <reuseForks>true</reuseForks>
-          <systemProperties>
-            <property>
-              <name>allure.results.directory</name>
-              <value>${project.basedir}/target/allure-results</value>
-            </property>
-            <property>
-              <name>junit.jupiter.extensions.autodetection.enabled</name>
-              <value>true</value>
-            </property>
-          </systemProperties>
           <systemPropertyVariables>
+            <allure.results.directory>${project.basedir}/target/allure-results</allure.results.directory>
+            <junit.jupiter.extensions.autodetection.enabled>true</junit.jupiter.extensions.autodetection.enabled>
             <cucumber.filter.tags>${cucumber.filter.tags}</cucumber.filter.tags>
           </systemPropertyVariables>
           <testFailureIgnore>true</testFailureIgnore>

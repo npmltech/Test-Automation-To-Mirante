@@ -27,7 +27,7 @@ public class PersonApi {
         contentInsertion.put("name", name);
         contentInsertion.put("age", age);
         contentInsertion.put("comments", comments);
-        RestAssured.baseURI = ManagerFileUtils.getUrlFromJson("My_Heroku_API_Url");
+        RestAssured.baseURI = ManagerFileUtils.getUrlFromJson("my_heroku_api_url");
         RequestSpecification request = RestAssured.given().accept("application/json")
             .header("Authorization", HeaderClass.getToken()).contentType(ContentType.JSON).body(contentInsertion);
         Response response = request.when().post("api/usr/person");
@@ -45,7 +45,7 @@ public class PersonApi {
         contentUpdate.put("name", name);
         contentUpdate.put("age", age);
         contentUpdate.put("comment", comment);
-        RestAssured.baseURI = ManagerFileUtils.getUrlFromJson("My_Heroku_API_Url");
+        RestAssured.baseURI = ManagerFileUtils.getUrlFromJson("my_heroku_api_url");
         RequestSpecification request = RestAssured.given().header("Authorization", HeaderClass.getToken())
             .contentType(ContentType.JSON).body(contentUpdate);
         Response response = request.when().put(String.format("api/usr/person/%s", id));
@@ -58,7 +58,7 @@ public class PersonApi {
     /* CONSULTAR PESSOAS */
     public void getPersons() {
         LOGGER.info("[PersonApi] GET /api/usr/persons");
-        RestAssured.baseURI = ManagerFileUtils.getUrlFromJson("My_Heroku_API_Url");
+        RestAssured.baseURI = ManagerFileUtils.getUrlFromJson("my_heroku_api_url");
         RequestSpecification httpRequest = RestAssured.given().header("Authorization", HeaderClass.getToken())
             .contentType(ContentType.JSON);
         Response response = httpRequest.get("api/usr/persons");
@@ -71,7 +71,7 @@ public class PersonApi {
     /* CONSULTAR PESSOA POR ID */
     public void getPersonById(String id) {
         LOGGER.info("[PersonApi] GET /api/usr/person/{}", id);
-        RestAssured.baseURI = ManagerFileUtils.getUrlFromJson("My_Heroku_API_Url");
+        RestAssured.baseURI = ManagerFileUtils.getUrlFromJson("my_heroku_api_url");
         RequestSpecification request = RestAssured.given().header("Authorization", HeaderClass.getToken())
             .contentType(ContentType.JSON);
         Response response = request.get(String.format("api/usr/person/%s", id));
@@ -84,7 +84,7 @@ public class PersonApi {
     /* EXCLUIR PESSOA POR ID */
     public void deletePersonById(String id) {
         LOGGER.info("[PersonApi] DELETE /api/usr/person/{}", id);
-        RestAssured.baseURI = ManagerFileUtils.getUrlFromJson("My_Heroku_API_Url");
+        RestAssured.baseURI = ManagerFileUtils.getUrlFromJson("my_heroku_api_url");
         RequestSpecification request = RestAssured.given().header("Authorization", HeaderClass.getToken())
             .contentType(ContentType.JSON);
         Response response = request.delete(String.format("api/usr/person/%s", id));

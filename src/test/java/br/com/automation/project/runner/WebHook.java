@@ -5,7 +5,7 @@ import br.com.automation.project.utils.WebDriverUtils;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
-import java.util.Set;
+import java.util.Collection;
 
 public class WebHook {
 
@@ -15,15 +15,16 @@ public class WebHook {
         return uiScenarioExecuted;
     }
 
-    private static boolean isUiScenario(Set<String> sourceTags) {
+    private static boolean isUiScenario(Collection<String> sourceTags) {
         return sourceTags != null && sourceTags.stream().anyMatch(tag -> tag.equals("@ui") || tag.startsWith("@ui_"));
     }
 
     @Before
     public void beforeHook(Scenario scenario) {
-        Set<String> sourceTags = scenario.getSourceTagNames();
+        Collection<String> sourceTags = scenario.getSourceTagNames();
         if (sourceTags != null) {
-            sourceTags.stream().sorted().forEachOrdered(tagName -> System.out.println("--> Rodando Features por Tag: " + tagName));
+            sourceTags.stream().sorted()
+                .forEachOrdered(tagName -> System.out.println("--> Rodando Features por Tag: " + tagName));
         }
 
         if (isUiScenario(sourceTags)) {
