@@ -1,0 +1,34 @@
+{
+  "POST - Buy Flight Ticket" : {
+    "transaction" : "POST - Buy Flight Ticket",
+    "sampleCount" : 45510,
+    "errorCount" : 45510,
+    "errorPct" : 100.0,
+    "meanResTime" : 76.65620742693923,
+    "medianResTime" : 76.0,
+    "minResTime" : 31.0,
+    "maxResTime" : 192.0,
+    "pct1ResTime" : 113.0,
+    "pct2ResTime" : 117.0,
+    "pct3ResTime" : 120.0,
+    "throughput" : 252.0994438412621,
+    "receivedKBytesPerSec" : 49.484363488372736,
+    "sentKBytesPerSec" : 117.67923257433914
+  },
+  "Total" : {
+    "transaction" : "Total",
+    "sampleCount" : 45510,
+    "errorCount" : 45510,
+    "errorPct" : 100.0,
+    "meanResTime" : 76.65620742693923,
+    "medianResTime" : 76.0,
+    "minResTime" : 31.0,
+    "maxResTime" : 192.0,
+    "pct1ResTime" : 113.0,
+    "pct2ResTime" : 117.0,
+    "pct3ResTime" : 120.0,
+    "throughput" : 252.0994438412621,
+    "receivedKBytesPerSec" : 49.484363488372736,
+    "sentKBytesPerSec" : 117.67923257433914
+  }
+}

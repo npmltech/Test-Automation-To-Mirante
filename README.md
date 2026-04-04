@@ -487,3 +487,6 @@ Arquivo: `src/test/resources/json-repo/urls.json`
 - `CHANGELOG.md` -> histórico de mudanças
 - `TROUBLESHOOTING.md` -> problemas conhecidos e soluções
 - `KNOWLEGDE.md` -> guia de conhecimento técnico (conceitos e implementação)
+- `testes-carga-pico/JMETER.md` -> guia principal dos testes de carga com JMeter
+- `testes-carga-pico/GUIA-RAPIDO-EXECUCAO.md` -> execução rápida dos cenários de carga e pico
+- `testes-carga-pico/GUIDE-GUI-JMETER.md` -> execução em interface gráfica (GUI)
