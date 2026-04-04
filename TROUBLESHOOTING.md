@@ -333,6 +333,36 @@ Guia prático com os problemas encontrados durante as execuções e as soluçõe
 
 ---
 
+## 14) Aviso de depreciação do Node.js 20 no GitHub Actions
+
+### Sintoma
+- Alerta exibido no CI indicando que algumas actions estavam em runtime Node.js 20, por exemplo:
+  - `actions/checkout@v4`
+  - `actions/setup-java@v4`
+  - `actions/upload-artifact@v4`
+- Mensagem de migração informando adoção de Node.js 24 como padrão nos runners.
+
+### Causa provável
+- Mudança de política do GitHub Actions para runtime JavaScript das actions.
+- Workflows com actions em versões antigas ou sem opt-in explícito podem gerar aviso durante a janela de transição.
+
+### Solução aplicada
+- Atualização do workflow `.github/workflows/tests-api-web.yml` para:
+  - `actions/checkout@v5`
+  - `actions/setup-java@v5`
+  - `actions/upload-artifact@v4`
+- Ativação da variável de compatibilidade:
+  - `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true`
+
+### Impacto
+- Pipeline permanece estável durante a transição de runtime.
+- Redução de risco de falha futura por remoção do Node.js 20 nos runners.
+
+### Status
+- Resolvido.
+
+---
+
 ## Comandos rápidos para reproduzir
 
 ### Linux/macOS
