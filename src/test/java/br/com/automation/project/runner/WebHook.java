@@ -5,37 +5,36 @@ import br.com.automation.project.utils.WebDriverUtils;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
-import org.apache.commons.lang3.StringUtils;
+import java.util.Set;
 
 public class WebHook {
 
-    private static String[] TAG_NAMES;
+    private static volatile boolean uiScenarioExecuted;
 
-    public static void setTagNames(String[] tagNames) {
-        TAG_NAMES = tagNames;
+    public static boolean hasUiScenarioExecuted() {
+        return uiScenarioExecuted;
     }
 
-    public static String[] getTagNames() {
-        return TAG_NAMES;
+    private static boolean isUiScenario(Set<String> sourceTags) {
+        return sourceTags != null && sourceTags.stream().anyMatch(tag -> tag.equals("@ui") || tag.startsWith("@ui_"));
     }
 
     @Before
     public void beforeHook(Scenario scenario) {
-        if (scenario.getSourceTagNames() != null) {
-            scenario.getSourceTagNames().stream().forEachOrdered(tagName -> {
-                System.out.println("--> Rodando Features por Tag: " + tagName);
-                String[] tagNames = StringUtils.split(tagName, ":");
-                setTagNames(tagNames);
-            });
+        Set<String> sourceTags = scenario.getSourceTagNames();
+        if (sourceTags != null) {
+            sourceTags.stream().sorted().forEachOrdered(tagName -> System.out.println("--> Rodando Features por Tag: " + tagName));
         }
-        if (getTagNames()[0].contains("@ui")) {
+
+        if (isUiScenario(sourceTags)) {
+            uiScenarioExecuted = true;
             WebDriverUtils.getDriverManager().getDriver().manage().window().maximize();
         }
     }
 
     @After
     public void afterHook(Scenario scenario) {
-        if (getTagNames()[0].contains("@ui")) {
+        if (isUiScenario(scenario.getSourceTagNames())) {
             if (scenario.isFailed()) {
                 scenario.attach(
                     ScreenshotGenerator.getScreenshot(scenario, WebDriverUtils.getDriverManager().getDriver()),

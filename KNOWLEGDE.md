@@ -87,6 +87,29 @@ Em resumo:
 - revisão gramatical em `.feature` é bem-vinda;
 - revisão de steps exige cuidado funcional, e não apenas textual.
 
+### 3.2) Labels do Allure via tags no `.feature`
+
+Além das tags funcionais de execução (`@api`, `@dog_api`, `@ui`, `@agi_blog`), os cenários podem receber labels do Allure para enriquecer os relatórios.
+
+Padrão usado no projeto:
+- `@allure.label.owner:<responsavel>`
+- `@allure.label.epic:<contexto_macro>`
+- `@allure.label.feature:<feature_do_produto>`
+- `@allure.label.story:<cenario_ou_fluxo>`
+- `@allure.label.severity:<nivel>`
+
+Exemplo:
+
+```gherkin
+@api_cn_e1 @allure.label.severity:critical @allure.label.story:api_cn_e1
+Cenário: Validar a listagem completa de raças de cães
+```
+
+Boas práticas:
+- mantenha tags funcionais para filtro de execução no Maven/Cucumber;
+- use tags `@allure.label.*` apenas para metadados de relatório;
+- prefira valores curtos e estáveis para `story` e `owner`.
+
 ---
 
 ## 3) O que é Page Object

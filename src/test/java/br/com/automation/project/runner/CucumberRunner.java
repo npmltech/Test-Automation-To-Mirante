@@ -10,8 +10,6 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 
-import java.util.List;
-
 @RunWith(Cucumber.class)
 // spotless:off
 @CucumberOptions(
@@ -45,11 +43,9 @@ public class CucumberRunner {
 
     @AfterClass
     public static void tearDown() {
-        List.of(WebHook.getTagNames()).parallelStream().forEach(tagName -> {
-            if (tagName.contains("@ui")) {
-                DriverManager.addDriver(WebDriverUtils.getDriverManager().getDriver());
-                DriverManager.closeAndQuitDriver();
-            }
-        });
+        if (WebHook.hasUiScenarioExecuted() && WebDriverUtils.getDriverManager() != null) {
+            DriverManager.addDriver(WebDriverUtils.getDriverManager().getDriver());
+            DriverManager.closeAndQuitDriver();
+        }
     }
 }

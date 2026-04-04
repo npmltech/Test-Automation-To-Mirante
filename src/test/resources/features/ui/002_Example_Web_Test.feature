@@ -2,9 +2,10 @@
 # encoding: utf-8
 
 @ui
+@allure.label.owner:npmltech @allure.label.epic:Desafio_Mirante @allure.label.feature:UI_Google_Search
 Funcionalidade: Realizar pesquisa no Google
 
-  @ui_cn_b1
+  @ui_cn_b1 @allure.label.severity:normal @allure.label.story:ui_cn_b1
   Esquema do Cenário: Realizar uma pesquisa utilizando o Google Search 1
     Dado que eu acesso a "<url>"
     Quando eu preencho o campo de pesquisa com "<texto>"
@@ -16,7 +17,7 @@ Funcionalidade: Realizar pesquisa no Google
       | Google | selenium documentation | The Selenium Browser Automation Project \| Selenium                             |
       | Google | terra notícias         | Notícias do Brasil, mundo, clima, tecnologia, ciências, educação e mais - Terra |
 
-  @ui_cn_b2
+  @ui_cn_b2 @allure.label.severity:normal @allure.label.story:ui_cn_b2
   Esquema do Cenário: Realizar uma pesquisa utilizando o Google Search 2
     Dado que eu acesso a "<url>"
     Quando eu preencho o campo de pesquisa com "<texto>"
