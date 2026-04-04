@@ -75,3 +75,71 @@ jobs:
             target/cluecumber-reports
             target/cucumber-reports
           if-no-files-found: warn
+
+  jmeter-blazedemo:
+    name: JMeter BlazeDemo
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v5
+
+      - name: Configurar Java 25
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '25'
+
+      - name: Baixar Apache JMeter
+        run: |
+          curl -fsSL -o /tmp/apache-jmeter.tgz https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.6.3.tgz
+          tar -xzf /tmp/apache-jmeter.tgz -C "$RUNNER_TEMP"
+
+      - name: Executar plano JMeter (carga e pico)
+        run: |
+          JMETER_BIN="$RUNNER_TEMP/apache-jmeter-5.6.3/bin/jmeter"
+          chmod +x "$JMETER_BIN"
+          mkdir -p testes-carga-pico/results/ci-load testes-carga-pico/results/ci-spike
+
+          "$JMETER_BIN" -n \
+            -t testes-carga-pico/site-de-viagens.jmx \
+            -l testes-carga-pico/results/ci-load/results.jtl \
+            -j testes-carga-pico/results/ci-load/jmeter.log \
+            -e -o testes-carga-pico/results/ci-load/report \
+            -JbaseUrl=www.blazedemo.com \
+            -JloadThreads=120 \
+            -JloadRampUp=30 \
+            -JloadDuration=60 \
+            -JspikeThreads=0 \
+            -JspikeDelay=99999 \
+            -JspikeDuration=1 \
+            -JspikeRampUp=1
+
+          "$JMETER_BIN" -n \
+            -t testes-carga-pico/site-de-viagens.jmx \
+            -l testes-carga-pico/results/ci-spike/results.jtl \
+            -j testes-carga-pico/results/ci-spike/jmeter.log \
+            -e -o testes-carga-pico/results/ci-spike/report \
+            -JbaseUrl=www.blazedemo.com \
+            -JloadThreads=120 \
+            -JloadRampUp=30 \
+            -JloadDuration=90 \
+            -JspikeThreads=180 \
+            -JspikeDelay=30 \
+            -JspikeDuration=30 \
+            -JspikeRampUp=10
+
+      - name: Publicar artefatos de relatório (JMeter)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: relatorios-jmeter-blazedemo
+          path: |
+            testes-carga-pico/results/ci-load/results.jtl
+            testes-carga-pico/results/ci-load/jmeter.log
+            testes-carga-pico/results/ci-load/report
+            testes-carga-pico/results/ci-spike/results.jtl
+            testes-carga-pico/results/ci-spike/jmeter.log
+            testes-carga-pico/results/ci-spike/report
+            testes-carga-pico/results/relatorio-execucao-blazedemo-20260404.md
+          if-no-files-found: warn

@@ -371,6 +371,10 @@ Essa configuração mantém o pipeline compatível com a transição de runtime 
   - Comando: `./mvnw verify -Dcucumber.filter.tags="@agi_blog" -Dheadless=true`
   - Objetivo: validar somente os cenários Web do Blog do Agi em modo headless.
 
+- Job `jmeter-blazedemo`
+  - Comando: execução do arquivo `testes-carga-pico/site-de-viagens.jmx` em modo non-GUI no runner Ubuntu.
+  - Objetivo: validar o plano de carga/pico e gerar artefatos de performance no CI.
+
 ### Artefatos publicados no GitHub Actions
 
 Ao final de cada job (inclusive quando há falha), o workflow publica:
@@ -379,6 +383,13 @@ Ao final de cada job (inclusive quando há falha), o workflow publica:
 - `target/site/allure-maven-plugin`
 - `target/cluecumber-reports`
 - `target/cucumber-reports`
+- `testes-carga-pico/results/ci-load/results.jtl`
+- `testes-carga-pico/results/ci-load/jmeter.log`
+- `testes-carga-pico/results/ci-load/report`
+- `testes-carga-pico/results/ci-spike/results.jtl`
+- `testes-carga-pico/results/ci-spike/jmeter.log`
+- `testes-carga-pico/results/ci-spike/report`
+- `testes-carga-pico/results/relatorio-execucao-blazedemo-20260404.md`
 
 Isso facilita a análise de erro sem precisar reproduzir localmente antes.
 
@@ -487,3 +498,6 @@ Arquivo: `src/test/resources/json-repo/urls.json`
 - `CHANGELOG.md` -> histórico de mudanças
 - `TROUBLESHOOTING.md` -> problemas conhecidos e soluções
 - `KNOWLEGDE.md` -> guia de conhecimento técnico (conceitos e implementação)
+- `testes-carga-pico/JMETER.md` -> guia principal dos testes de carga com JMeter
+- `testes-carga-pico/GUIA-RAPIDO-EXECUCAO.md` -> execução rápida dos cenários de carga e pico
+- `testes-carga-pico/GUIDE-GUI-JMETER.md` -> execução em interface gráfica (GUI)

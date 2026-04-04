@@ -6,11 +6,19 @@ Todas as mudanças relevantes deste ciclo de evolução do projeto foram documen
 
 ## [Unreleased] - 2026-04-04 — Sincronização geral das documentações
 
+### Added
+- Job `jmeter-blazedemo` adicionado ao workflow `.github/workflows/tests-api-web.yml` para executar o plano `testes-carga-pico/site-de-viagens.jmx` em modo non-GUI no CI.
+- Publicação de artefatos de performance no GitHub Actions:
+  - `testes-carga-pico/results/ci-load/*`
+  - `testes-carga-pico/results/ci-spike/*`
+  - `testes-carga-pico/results/relatorio-execucao-blazedemo-20260404.md`
+
 ### Changed
 - `README.md` sincronizado com o estado atual do projeto:
   - comando principal do desafio padronizado com `@agi_blog or @dog_api`;
   - seção de CI atualizada com versões das actions (`checkout@v5`, `setup-java@v5`, `upload-artifact@v4`);
   - documentação da variável `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true`.
+- `testes-carga-pico/JMETER.md` ajustado para instruir o download do JMeter 5.6.3 durante a instalação local.
 - `KNOWLEGDE.md` atualizado com seção técnica de CI (`GitHub Actions`), incluindo gatilhos, jobs, ações utilizadas e artefatos publicados.
 - `TROUBLESHOOTING.md` ampliado com o incidente de depreciação do Node.js 20 no GitHub Actions e a mitigação adotada no workflow.
 - Tags de owner do Allure padronizadas para `@allure.label.owner:qualidade` nas features de API e UI.
