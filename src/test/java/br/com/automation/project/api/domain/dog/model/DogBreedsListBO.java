@@ -28,10 +28,9 @@ public class DogBreedsListBO implements Serializable {
         return this.status;
     }
 
-    // @formatter:off
     @Override
     public String toString() {
-        return "DogBreedsListBO{" + "totalBreeds=" + (this.breeds != null ? this.breeds.size() : 0) + ", status='" + this.status + "'" + '}';
-        //
+        return "DogBreedsListBO{" + "totalBreeds=" + (this.breeds != null ? this.breeds.size() : 0) + ", status='"
+            + this.status + "'" + '}';
     }
 }
