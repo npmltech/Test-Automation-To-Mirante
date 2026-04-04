@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 @api @star_wars
-@allure.label.owner:npmltech @allure.label.epic:Desafio_Mirante @allure.label.feature:API_Star_Wars
+@allure.label.owner:qualidade @allure.label.epic:Desafio_Mirante @allure.label.feature:API_Star_Wars
 Funcionalidade: Validar a API de personagens de Star Wars
 
   - Eu, como testador, gostaria de realizar testes de APIs de Star Wars,

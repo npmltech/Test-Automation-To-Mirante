@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 @api @star_wars
-@allure.label.owner:npmltech @allure.label.epic:Desafio_Mirante @allure.label.feature:API_Star_Wars_Root
+@allure.label.owner:qualidade @allure.label.epic:Desafio_Mirante @allure.label.feature:API_Star_Wars_Root
 Funcionalidade: Validar a API raiz de informações do Star Wars
 
   - Eu, como testador, gostaria de realizar o teste da API Root de Star Wars,

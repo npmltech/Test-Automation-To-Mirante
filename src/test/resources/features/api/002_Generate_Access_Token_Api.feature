@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 @api
-@allure.label.owner:npmltech @allure.label.epic:Desafio_Mirante @allure.label.feature:API_Access_Token
+@allure.label.owner:qualidade @allure.label.epic:Desafio_Mirante @allure.label.feature:API_Access_Token
 Funcionalidade: Gerar o token para acesso aos endpoints publicados no Heroku
 
   - Eu, como testador, gostaria de gerar um token para acessar as APIs

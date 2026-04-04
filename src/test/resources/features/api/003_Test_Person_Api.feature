@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 @api
-@allure.label.owner:npmltech @allure.label.epic:Desafio_Mirante @allure.label.feature:API_Person
+@allure.label.owner:qualidade @allure.label.epic:Desafio_Mirante @allure.label.feature:API_Person
 Funcionalidade: Validar a API Person
 
   - Eu, como testador, gostaria de realizar o teste de API

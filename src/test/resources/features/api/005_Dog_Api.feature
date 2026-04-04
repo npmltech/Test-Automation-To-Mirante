@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 @api @dog_api
-@allure.label.owner:npmltech @allure.label.epic:Desafio_Mirante @allure.label.feature:API_Dog
+@allure.label.owner:qualidade @allure.label.epic:Desafio_Mirante @allure.label.feature:API_Dog
 Funcionalidade: Validar a integração com a Dog API
 
   - Eu, como testador, gostaria de garantir a qualidade da integração com a Dog API,

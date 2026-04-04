@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 @ui
-@allure.label.owner:npmltech @allure.label.epic:Desafio_Mirante @allure.label.feature:UI_Google_Search
+@allure.label.owner:qualidade @allure.label.epic:Desafio_Mirante @allure.label.feature:UI_Google_Search
 Funcionalidade: Realizar pesquisa no Google
 
   @ui_cn_c1 @allure.label.severity:normal @allure.label.story:ui_cn_c1
