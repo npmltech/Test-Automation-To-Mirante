@@ -4,6 +4,8 @@ Guia curto para rodar os testes de carga e pico, com comandos diretos por sistem
 
 ## Passo 1) Validar o JMeter
 
+*Para baixar e validar o JMeter, siga as instruções em [JMETER.md](./JMETER.md#instalar-e-validar-o-jmeter).*
+
 Linux/macOS:
 
 ```bash

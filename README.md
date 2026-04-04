@@ -63,6 +63,15 @@ Conceitos treinados:
 
 Atualmente, a suíte do Blog do Agi cobre 5 cenários funcionais relevantes.
 
+### Testes de performance (JMeter)
+
+Para execução e análise dos cenários de carga/pico, use estes atalhos:
+
+- Guia principal (instalação, execução CLI/GUI e CI): `testes-carga-pico/JMETER.md`
+- Guia rápido (execução objetiva): `testes-carga-pico/GUIA-RAPIDO-EXECUCAO.md`
+- Plano de teste JMeter (arquivo `.jmx`): `testes-carga-pico/site-de-viagens.jmx`
+- Exemplo de relatório consolidado: `testes-carga-pico/results/relatorio-execucao-blazedemo-20260404.md`
+
 ---
 
 ## Stack e versões
@@ -500,4 +509,4 @@ Arquivo: `src/test/resources/json-repo/urls.json`
 - `KNOWLEGDE.md` -> guia de conhecimento técnico (conceitos e implementação)
 - `testes-carga-pico/JMETER.md` -> guia principal dos testes de carga com JMeter
 - `testes-carga-pico/GUIA-RAPIDO-EXECUCAO.md` -> execução rápida dos cenários de carga e pico
-- `testes-carga-pico/GUIDE-GUI-JMETER.md` -> execução em interface gráfica (GUI)
+- `testes-carga-pico/site-de-viagens.jmx` -> plano de teste de performance (carga e pico)
