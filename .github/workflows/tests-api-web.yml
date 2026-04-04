@@ -1,0 +1,74 @@
+name: Testes API Dog e Web AgiBlog
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  api-dog:
+    name: API Dog
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Java 25
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '25'
+          cache: maven
+
+      - name: Garantir permissão de execução no Maven Wrapper
+        run: chmod +x ./mvnw
+
+      - name: Executar testes da Dog API
+        run: ./mvnw verify -Dcucumber.filter.tags="@dog_api"
+
+      - name: Publicar artefatos de relatório (API)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: relatorios-api-dog
+          path: |
+            target/allure-results
+            target/site/allure-maven-plugin
+            target/cluecumber-reports
+            target/cucumber-reports
+          if-no-files-found: warn
+
+  web-agi-blog:
+    name: Web AgiBlog
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Java 25
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '25'
+          cache: maven
+
+      - name: Garantir permissão de execução no Maven Wrapper
+        run: chmod +x ./mvnw
+
+      - name: Executar testes Web do AgiBlog (headless)
+        run: ./mvnw verify -Dcucumber.filter.tags="@agi_blog" -Dheadless=true
+
+      - name: Publicar artefatos de relatório (Web)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: relatorios-web-agi-blog
+          path: |
+            target/allure-results
+            target/site/allure-maven-plugin
+            target/cluecumber-reports
+            target/cucumber-reports
+          if-no-files-found: warn
