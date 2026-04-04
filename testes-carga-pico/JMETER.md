@@ -55,7 +55,7 @@ Boas práticas:
 
 ## Estrutura do novo `site-de-viagens.jmx`
 
-O plano atualizado foi incluído no repositório com a seguinte organização:
+O plano foi incluído com a seguinte organização:
 
 - `Test Plan`: `Plano de testes para o site de viagens e compra de passagens`.
 - `HTTP Defaults`: host global em `${BASE_URL}` e protocolo `https`.
@@ -65,7 +65,7 @@ O plano atualizado foi incluído no repositório com a seguinte organização:
 - `ResultCollector` de GUI (`View Results Tree` e `Summary Report`) desabilitados por padrão.
 - `Backend Listener` desabilitado por padrão (ativação opcional para stack externa).
 
-Pontos importantes da atualização:
+Pontos importantes:
 
 1. Variável principal de domínio padronizada em `BASE_URL`.
 2. Parâmetros de carga e pico centralizados em `User Defined Variables` com `__P(...)`.
