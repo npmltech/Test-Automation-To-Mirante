@@ -20,7 +20,7 @@ Funcionalidade: Validar a busca de artigos no blog do Agi
     E ao menos 1 artigo deverá ser listado nos resultados do blog
     E os títulos dos artigos retornados não deverão estar vazios
 
-  @ui_cn_d2 @allure.label.severity:critical @allure.label.story:ui_cn_d2
+  @ui_cn_d2 @allure.label.severity:normal @allure.label.story:ui_cn_d2
   Cenário: Pesquisar por um termo inexistente e não exibir artigos
     Quando eu pesquiso no blog do Agi por "termoquejamaisdeveexistirxyz"
     Então o título da página de resultados do blog deverá ser exibido
@@ -37,7 +37,7 @@ Funcionalidade: Validar a busca de artigos no blog do Agi
     E ao menos 1 artigo deverá ser listado nos resultados do blog
     E os títulos dos artigos retornados não deverão estar vazios
 
-  @ui_cn_d4 @allure.label.severity:critical @allure.label.story:ui_cn_d4
+  @ui_cn_d4 @allure.label.severity:normal @allure.label.story:ui_cn_d4
   Cenário: Realizar duas buscas consecutivas e validar atualização dos resultados
     Quando eu pesquiso no blog do Agi por "pix"
     Então ao menos 1 artigo deverá ser listado nos resultados do blog
