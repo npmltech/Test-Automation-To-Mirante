@@ -1,0 +1,453 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>io.github.npmltech</groupId>
+  <artifactId>test-automation-to-mirante</artifactId>
+  <version>${revision}</version>
+  <name>Test-Automation-To-Mirante</name>
+  <description>A Test Automation by Mirante's Challenge.</description>
+
+  <properties>
+    <revision>0.0.2-SNAPSHOT</revision>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+    <!-- MAVEN CONFIGURATIONS -->
+    <maven-compiler-plugin>3.14.0</maven-compiler-plugin>
+    <maven-compiler-target>25</maven-compiler-target>
+    <maven-compiler-source>25</maven-compiler-source>
+    <maven-failsafe-plugin>3.5.5</maven-failsafe-plugin>
+    <maven-resources-plugin>3.3.1</maven-resources-plugin>
+    <maven-surefire-plugin>3.5.5</maven-surefire-plugin>
+    <spotless-maven-plugin.version>2.46.1</spotless-maven-plugin.version>
+    <!-- ALLURE REPORT -->
+    <allure-maven.version>2.17.0</allure-maven.version>
+    <allure-report.version>2.33.0</allure-report.version>
+    <allure-commandline.version>2.38.1</allure-commandline.version>
+    <!-- APACHE COMMONS-IO -->
+    <commons-io.version>2.18.0</commons-io.version>
+    <commons-lang3.version>3.18.0</commons-lang3.version>
+    <!-- ASPECTJ -->
+    <aspectj.version>1.9.24</aspectj.version>
+    <assertj.version>3.27.7</assertj.version>
+    <!-- CLUECUMBER REPORT -->
+    <cluecumber-report.version>2.9.4</cluecumber-report.version>
+    <!-- CUCUMBER -->
+    <cucumber.version>7.22.1</cucumber.version>
+    <!-- JACKSON -->
+    <fasterxml-jackson.version>2.18.6</fasterxml-jackson.version>
+    <!-- GSON -->
+    <gson.version>2.11.0</gson.version>
+    <!-- HAMCREST -->
+    <hamcrest.version>2.2</hamcrest.version>
+    <!-- JSON SIMPLE -->
+    <json-simple.version>1.1.1</json-simple.version>
+    <!-- JUNIT -->
+    <junit4.version>4.13.2</junit4.version>
+    <junit-jupiter.version>5.12.2</junit-jupiter.version>
+    <junit-vintage-engine.version>5.12.2</junit-vintage-engine.version>
+    <!-- REST ASSURED -->
+    <rest-assured.version>5.5.2</rest-assured.version>
+    <!-- SELENIUM JAVA -->
+    <selenium-java.version>4.33.0</selenium-java.version>
+    <rhino.version>1.7.15.1</rhino.version>
+    <!-- SLF4J -->
+    <slf4j.version>2.0.17</slf4j.version>
+    <!-- WEBDRIVER MANAGER -->
+    <webdrivermanager.version>6.1.0</webdrivermanager.version>
+    <cucumber.filter.tags />
+  </properties>
+
+  <dependencies>
+    <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+      <version>${fasterxml-jackson.version}</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>${fasterxml-jackson.version}</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${fasterxml-jackson.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>com.fasterxml.jackson.core</groupId>
+          <artifactId>jackson-core</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>${gson.version}</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
+    <dependency>
+      <groupId>com.googlecode.json-simple</groupId>
+      <artifactId>json-simple</artifactId>
+      <version>${json-simple.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>${commons-io.version}</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-core -->
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-core</artifactId>
+      <version>${cucumber.version}</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-java</artifactId>
+      <version>${cucumber.version}</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-junit -->
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-junit</artifactId>
+      <version>${cucumber.version}</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-picocontainer -->
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-picocontainer</artifactId>
+      <version>${cucumber.version}</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
+    <dependency>
+      <groupId>io.github.bonigarcia</groupId>
+      <artifactId>webdrivermanager</artifactId>
+      <version>${webdrivermanager.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.commons</groupId>
+          <artifactId>commons-lang3</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-cucumber7-jvm -->
+    <dependency>
+      <groupId>io.qameta.allure</groupId>
+      <artifactId>allure-cucumber7-jvm</artifactId>
+      <version>${allure-report.version}</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-java-commons -->
+    <dependency>
+      <groupId>io.qameta.allure</groupId>
+      <artifactId>allure-java-commons</artifactId>
+      <version>${allure-report.version}</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-testng -->
+    <dependency>
+      <groupId>io.qameta.allure</groupId>
+      <artifactId>allure-testng</artifactId>
+      <version>${allure-report.version}</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/io.rest-assured/json-path -->
+    <dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>json-path</artifactId>
+      <version>${rest-assured.version}</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/io.rest-assured/json-schema-validator -->
+    <dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>json-schema-validator</artifactId>
+      <version>${rest-assured.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.mozilla</groupId>
+          <artifactId>rhino</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
+    <dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>rest-assured</artifactId>
+      <version>${rest-assured.version}</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured-common -->
+    <dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>rest-assured-common</artifactId>
+      <version>${rest-assured.version}</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/io.rest-assured/xml-path -->
+    <dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>xml-path</artifactId>
+      <version>${rest-assured.version}</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.assertj/assertj-core -->
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <version>${assertj.version}</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest -->
+    <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest</artifactId>
+      <version>${hamcrest.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>${commons-lang3.version}</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>${junit-jupiter.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit4.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.junit.vintage/junit-vintage-engine -->
+    <dependency>
+      <groupId>org.junit.vintage</groupId>
+      <artifactId>junit-vintage-engine</artifactId>
+      <version>${junit-vintage-engine.version}</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-java</artifactId>
+      <version>${selenium-java.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.mozilla</groupId>
+      <artifactId>rhino</artifactId>
+      <version>${rhino.version}</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-failsafe-plugin</artifactId>
+      <version>${maven-failsafe-plugin}</version>
+      <executions>
+        <execution>
+          <goals>
+            <goal>integration-test</goal>
+            <goal>verify</goal>
+          </goals>
+          <configuration>
+            <includes>
+              <include>**/Cucumber*.java</include>
+            </includes>
+            <!--
+              <threadCount>4</threadCount>
+              <parallel>methods</parallel>
+              <testFailureIgnore>true</testFailureIgnore>
+              <useUnlimitedThreads>true</useUnlimitedThreads>
+            -->
+          </configuration>
+        </execution>
+      </executions>
+    </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven-compiler-plugin}</version>
+        <configuration>
+          <source>${maven-compiler-target}</source>
+          <target>${maven-compiler-source}</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>${maven-resources-plugin}</version>
+        <configuration>
+          <encoding>UTF-8</encoding>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>com.diffplug.spotless</groupId>
+        <artifactId>spotless-maven-plugin</artifactId>
+        <version>${spotless-maven-plugin.version}</version>
+        <configuration>
+          <java>
+            <eclipse>
+              <file>${project.basedir}/config/eclipse-java-formatter.xml</file>
+            </eclipse>
+            <replaceRegex>
+              <name>linha-em-branco-apos-package</name>
+              <searchRegex><![CDATA[(?s)\A(package\s+[^;]+;\n)(?!\n)]]></searchRegex>
+              <replacement><![CDATA[$1
+
+]]></replacement>
+            </replaceRegex>
+            <replaceRegex>
+              <name>linha-em-branco-apos-bloco-de-imports</name>
+              <searchRegex><![CDATA[(?m)(^import\s+[^;]+;\n)(?=\s*(?:public|protected|private|final|abstract)?\s*(?:class|interface|enum|record)\b)]]></searchRegex>
+              <replacement><![CDATA[$1
+
+]]></replacement>
+            </replaceRegex>
+            <replaceRegex>
+              <name>linha-em-branco-entre-atributos-e-membros</name>
+              <searchRegex><![CDATA[(?m)(^\s*(?:private|protected|public)\s+[^;]+;\n)(?=\s*(?:public|protected|private)\s+[^\n]+\()]]></searchRegex>
+              <replacement><![CDATA[$1
+
+]]></replacement>
+            </replaceRegex>
+            <replaceRegex>
+              <name>linha-em-branco-entre-metodos</name>
+              <searchRegex><![CDATA[(?m)(^\s*}\R)(?=\s*(?:public|protected|private)\s+[^\n]+\()]]></searchRegex>
+              <replacement><![CDATA[$1
+
+]]></replacement>
+            </replaceRegex>
+            <toggleOffOn />
+            <trimTrailingWhitespace />
+            <endWithNewline />
+          </java>
+        </configuration>
+        <executions>
+          <execution>
+            <id>spotless-check</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- ALLURE CUCUMBER JVM CONFIGURATIONS -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${maven-surefire-plugin}</version>
+        <configuration>
+          <argLine>
+            -Dfile.encoding=UTF-8
+            -Xms1024m -Xmx1G -Xss1024m
+            <!-- Plugin executed in the Cucumber Runner Class! -->
+            <!-- -Dcucumber.options="(replace this for 2 hyphens)plugin io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm" -->
+          </argLine>
+          <!--
+            <includes>
+              <include>**/CucumberRunner*.java</include>
+            </includes>
+          -->
+          <forkCount>3</forkCount>
+          <reuseForks>true</reuseForks>
+          <systemProperties>
+            <property>
+              <name>allure.results.directory</name>
+              <value>${project.basedir}/target/allure-results</value>
+            </property>
+            <property>
+              <name>junit.jupiter.extensions.autodetection.enabled</name>
+              <value>true</value>
+            </property>
+          </systemProperties>
+          <systemPropertyVariables>
+            <cucumber.filter.tags>${cucumber.filter.tags}</cucumber.filter.tags>
+          </systemPropertyVariables>
+          <testFailureIgnore>true</testFailureIgnore>
+          <threadCount>4</threadCount>
+          <useSystemClassLoader>false</useSystemClassLoader>
+          <!--
+            <forkMode>once</forkMode>
+            <parallel>all</parallel>
+            <reuseForks>true</reuseForks>
+            <skipTests>false</skipTests>
+            <useFile>false</useFile>
+            <useUnlimitedThreads>true</useUnlimitedThreads>
+          -->
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>io.qameta.allure</groupId>
+        <artifactId>allure-maven</artifactId>
+        <version>${allure-maven.version}</version>
+        <configuration>
+          <reportVersion>${allure-commandline.version}</reportVersion>
+          <!--
+            <allureDownloadUrl>https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/${allure.version}/allure-commandline-${allure.version}.zip</allureDownloadUrl>
+            <resultsDirectory>${project.build.directory}/allure-results</resultsDirectory>
+                <reportDirectory>${project.build.directory}/allure-reports</reportDirectory>
+               -->
+        </configuration>
+      </plugin>
+
+      <!-- CLUECUMBER REPORT PLUGIN CONFIGURATIONS -->
+      <plugin>
+        <groupId>com.trivago.rta</groupId>
+        <artifactId>cluecumber-report-plugin</artifactId>
+        <version>${cluecumber-report.version}</version>
+        <executions>
+          <execution>
+            <id>report</id>
+            <phase>post-integration-test</phase>
+            <goals>
+              <goal>reporting</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <sourceJsonReportDirectory>${project.build.directory}/cucumber-reports</sourceJsonReportDirectory>
+          <generatedHtmlReportDirectory>${project.build.directory}/cluecumber-reports</generatedHtmlReportDirectory>
+          <customParameters>
+            <Custom_Parameter>Cluecumber Test Report</Custom_Parameter>
+            <Custom_URL>https://github.com/trivago/cluecumber-report-plugin</Custom_URL>
+            <_KeysStartingWithAnUnderscoreAreHidden>
+              Our customized report, with data from the last tests run.
+            </_KeysStartingWithAnUnderscoreAreHidden>
+            <customStatusColorPassed>#00FF00</customStatusColorPassed>
+            <customStatusColorFailed>#DC143C</customStatusColorFailed>
+            <customStatusColorSkipped>#FFFF00</customStatusColorSkipped>
+          </customParameters>
+          <customPageTitle>CLUECUMBER CUSTOM REPORT</customPageTitle>
+        </configuration>
+      </plugin>
+
+    </plugins>
+  </build>
+
+</project>
