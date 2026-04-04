@@ -2,13 +2,14 @@
 # encoding: utf-8
 
 @api @star_wars
+@allure.label.owner:npmltech @allure.label.epic:Desafio_Mirante @allure.label.feature:API_Star_Wars
 Funcionalidade: Validar a API de personagens de Star Wars
 
   - Eu, como testador, gostaria de realizar testes de APIs de Star Wars,
     validando alguns de seus parâmetros.
   - Neste teste, serão validados dados de personagens da franquia.
 
-  @api_cn_a1
+  @api_cn_a1 @allure.label.severity:normal @allure.label.story:api_cn_a1
   Esquema do Cenário: Validar a API People - Luke Skywalker
     Dado que eu acesso a api people "<people>"
     Quando o http status code da api people for <status_code>
@@ -46,7 +47,7 @@ Funcionalidade: Validar a API de personagens de Star Wars
       | people | status_code | nome           | altura | peso | cor_cabelo | cor_pele | cor_olho | data_nascimento | genero | planeta_natal                    | data_criacao                | data_edicao                 | url                             |
       | 1      | 200         | Luke Skywalker | 172    | 77   | blond      | fair     | blue     | 19BBY           | male   | https://swapi.dev/api/planets/1/ | 2014-12-09T13:50:51.644000Z | 2014-12-20T21:17:56.891000Z | https://swapi.dev/api/people/1/ |
 
-  @api_cn_a2
+  @api_cn_a2 @allure.label.severity:normal @allure.label.story:api_cn_a2
   Esquema do Cenário: Validar a API People - Darth Vader
     Dado que eu acesso a api people "<people>"
     Quando o http status code da api people for <status_code>
@@ -80,7 +81,7 @@ Funcionalidade: Validar a API de personagens de Star Wars
       | people | status_code | nome        | altura | peso | cor_cabelo | cor_pele | cor_olho | data_nascimento | genero | planeta_natal                    | data_criacao                | data_edicao                 | url                             |
       | 4      | 200         | Darth Vader | 202    | 136  | none       | white    | yellow   | 41.9BBY         | male   | https://swapi.dev/api/planets/1/ | 2014-12-10T15:18:20.704000Z | 2014-12-20T21:17:50.313000Z | https://swapi.dev/api/people/4/ |
 
-  @api_cn_a3
+  @api_cn_a3 @allure.label.severity:normal @allure.label.story:api_cn_a3
   Esquema do Cenário: Validar a API People - Leia Organa
     Dado que eu acesso a api people "<people>"
     Quando o http status code da api people for <status_code>
