@@ -4,6 +4,26 @@ Todas as mudanças relevantes deste ciclo de evolução do projeto foram documen
 
 ---
 
+## [Unreleased] - 2026-04-04 — CI com GitHub Actions para Dog API e AgiBlog
+
+### Added
+- Novo workflow `.github/workflows/tests-api-web.yml` para execução contínua dos testes:
+  - Job `api-dog` executando `./mvnw verify -Dcucumber.filter.tags="@dog_api"`.
+  - Job `web-agi-blog` executando `./mvnw verify -Dcucumber.filter.tags="@agi_blog" -Dheadless=true`.
+- Publicação automática de artefatos de relatório em ambos os jobs:
+  - `target/allure-results`
+  - `target/site/allure-maven-plugin`
+  - `target/cluecumber-reports`
+  - `target/cucumber-reports`
+
+### Changed
+- Gatilhos do workflow restringidos para:
+  - `push` apenas na branch `main`.
+  - `pull_request`.
+- `README.md` atualizado com a seção **GitHub Actions (CI)**, explicando gatilhos, jobs, comandos e artefatos.
+
+---
+
 ## [Unreleased] - 2026-04-04 — Normalização de chaves JSON, robustez de seletores e refatoração de pom
 
 ### Fixed

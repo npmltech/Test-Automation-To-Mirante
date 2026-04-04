@@ -345,6 +345,39 @@ Ele executa todos os cenários da Dog API e do Blog do Agi em modo headless.
 
 ---
 
+## GitHub Actions (CI)
+
+Arquivo do workflow:
+- `.github/workflows/tests-api-web.yml`
+
+### Quando o pipeline roda
+
+- `push` apenas na branch `main`
+- `pull_request`
+
+### O que o pipeline executa
+
+- Job `api-dog`
+  - Comando: `./mvnw verify -Dcucumber.filter.tags="@dog_api"`
+  - Objetivo: validar somente os cenários da Dog API.
+
+- Job `web-agi-blog`
+  - Comando: `./mvnw verify -Dcucumber.filter.tags="@agi_blog" -Dheadless=true`
+  - Objetivo: validar somente os cenários Web do Blog do Agi em modo headless.
+
+### Artefatos publicados no GitHub Actions
+
+Ao final de cada job (inclusive quando há falha), o workflow publica:
+
+- `target/allure-results`
+- `target/site/allure-maven-plugin`
+- `target/cluecumber-reports`
+- `target/cucumber-reports`
+
+Isso facilita a análise de erro sem precisar reproduzir localmente antes.
+
+---
+
 ## Relatórios
 
 ### Allure
@@ -448,4 +481,3 @@ Arquivo: `src/test/resources/json-repo/urls.json`
 - `CHANGELOG.md` -> histórico de mudanças
 - `TROUBLESHOOTING.md` -> problemas conhecidos e soluções
 - `KNOWLEGDE.md` -> guia de conhecimento técnico (conceitos e implementação)
-- `KNOWLEGDE.pdf` -> versão em PDF do guia de conhecimento técnico
