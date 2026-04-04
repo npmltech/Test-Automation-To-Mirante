@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 @ui @agi_blog
-@allure.label.owner:npmltech @allure.label.epic:Desafio_Mirante @allure.label.feature:UI_Agi_Blog
+@allure.label.owner:qualidade @allure.label.epic:Desafio_Mirante @allure.label.feature:UI_Agi_Blog
 Funcionalidade: Validar a busca de artigos no blog do Agi
 
   - Eu, como testador, gostaria de validar a busca de artigos pela lupa no blog do Agi,

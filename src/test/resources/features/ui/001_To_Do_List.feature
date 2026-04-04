@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 @ui
-@allure.label.owner:npmltech @allure.label.epic:Desafio_Mirante @allure.label.feature:UI_Todo_List
+@allure.label.owner:qualidade @allure.label.epic:Desafio_Mirante @allure.label.feature:UI_Todo_List
 Funcionalidade: Carregar dados em uma lista de tarefas - Todo List
 
   Contexto:
