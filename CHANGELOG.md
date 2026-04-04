@@ -4,6 +4,14 @@ Todas as mudanças relevantes deste ciclo de evolução do projeto foram documen
 
 ---
 
+## [Unreleased] - 2026-04-03 — Correção do comando principal do desafio
+
+### Changed
+- Comando principal do desafio corrigido em documentação (`README.md` e `KNOWLEGDE.md`):
+  - De: `./mvnw verify -Dcucumber.filter.tags="@agi_blog and @dog_api" -Dheadless=true`
+  - Para: `./mvnw verify -Dcucumber.filter.tags="@agi_blog or @dog_api" -Dheadless=true`
+- Motivo: A sintaxe `and` requer que um único cenário tenha ambas as tags (`@agi_blog` E `@dog_api`), o que não existe no projeto. A sintaxe `or` executa todos os cenários que possuem `@agi_blog` OU `@dog_api`, que é o comportamento desejado para executar o desafio.
+
 ## [Unreleased] - 2026-04-03 — Padronização PT-BR e revisão documental
 
 ## [Unreleased] - 2026-04-03 — Comando principal e labels Allure no Gherkin
