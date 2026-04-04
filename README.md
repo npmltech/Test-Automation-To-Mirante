@@ -313,6 +313,16 @@ Também é possível habilitar headless no arquivo de propriedades (`headless=tr
 ./mvnw verify -Dcucumber.filter.tags="@ui_cn_d5" -Dheadless=true
 ```
 
+### Comando principal do desafio
+
+Este é o comando que executa o desafio técnico proposto (Dog API + Blog do Agi):
+
+```bash
+./mvnw verify -Dcucumber.filter.tags="@agi_blog or @dog_api" -Dheadless=true
+```
+
+Ele executa todos os cenários da Dog API e do Blog do Agi em modo headless.
+
 ---
 
 ## Relatórios

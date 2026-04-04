@@ -282,6 +282,9 @@ Esse comparativo ajuda a decidir rapidamente por onde começar quando você for 
 ## 11) Comandos úteis (resumo)
 
 ```bash
+# Comando principal do desafio (Dog API + Blog do Agi)
+./mvnw verify -Dcucumber.filter.tags="@agi_blog or @dog_api" -Dheadless=true
+
 # API - Dog
 ./mvnw verify -Dcucumber.filter.tags="@dog_api"
 
