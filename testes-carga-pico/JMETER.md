@@ -4,8 +4,8 @@ Este diretório contém o plano `site-de-viagens.jmx` para validar o fluxo de co
 
 ## Visão rápida
 
-- Cenário **carga**: volume constante de usuários virtuais.
-- Cenário **pico**: carga base + aumento abrupto (spike).
+- Cenário de **carga**: volume constante de usuários virtuais.
+- Cenário de **pico**: carga base + aumento abrupto (spike).
 - Saídas da execução: `results.jtl`, `jmeter.log` e dashboard HTML.
 
 ## Pré-requisitos
@@ -49,7 +49,7 @@ Variáveis principais:
 Boas práticas:
 
 1. Prefira sempre `-J...` no comando para manter histórico reprodutível no terminal/CI.
-2. Use nomenclatura consistente entre local e CI (evita testes com perfil diferente sem perceber).
+2. Use nomenclatura consistente entre ambiente local e CI (evita testes com perfil diferente sem perceber).
 3. Evite misturar maiúsculas/minúsculas nos nomes das propriedades.
 4. Inicie com carga menor e suba gradualmente (ex.: 100 -> 300 -> 700).
 
@@ -112,7 +112,7 @@ apache-jmeter-5.6.3\bin\jmeter.bat -n -t site-de-viagens.jmx -l results/spike/re
 4. Preserve `results.jtl` e `jmeter.log` junto do relatório para auditoria.
 5. Em CI, publique os três artefatos do cenário: `results.jtl`, `jmeter.log`, `report/`.
 
-## Boas práticas de `jmeter.properties` (baseado neste projeto)
+## Boas práticas de `jmeter.properties` (baseadas neste projeto)
 
 Mesmo usando `-J`, vale manter um perfil de segurança no `jmeter.properties`:
 
@@ -130,7 +130,7 @@ jmeter.reportgenerator.apdex_tolerated_threshold=1500
 jmeter.reportgenerator.overall_granularity=60000
 ```
 
-Recomendação prática:
+Recomendações práticas:
 
 - Mantenha um arquivo de propriedades versionado para o time.
 - Evite sobrescrever no arquivo valores específicos de teste que já estão em `-J...`.
@@ -138,7 +138,7 @@ Recomendação prática:
 
 ## Ajuste de memória heap do JMeter
 
-Para cargas mais altas, ajuste o heap antes da execução.
+Para cargas mais altas, ajuste a heap antes da execução.
 
 Linux/macOS:
 
@@ -188,7 +188,7 @@ Passos na interface:
 1. Mantenha listeners pesados desabilitados durante execução longa (`View Results Tree`, `Summary Report`).
 2. Use listeners apenas para depuração rápida e com baixa concorrência.
 3. Para resultados oficiais, execute em non-GUI com `-l`, `-j`, `-e`, `-o`.
-4. Evite editar o `.jmx` em paralelo por várias pessoas sem revisão (risco de drift).
+4. Evite editar o `.jmx` em paralelo por várias pessoas sem revisão (risco de divergência).
 
 No plano atual, os listeners de maior consumo já estão com `enabled="false"`.
 
