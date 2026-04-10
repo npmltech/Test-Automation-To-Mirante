@@ -5,27 +5,35 @@ import br.com.automation.project.utils.WebDriverUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.LoadableComponent;
+import org.openqa.selenium.support.ui.Wait;
 
 import java.net.URI;
 import java.net.URLEncoder;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class AgiBlogSearchPG extends LoadableComponent<AgiBlogSearchPG> {
 
+    private static final Duration UI_WAIT_TIMEOUT = Duration.ofSeconds(12);
+    private static final Duration UI_WAIT_POLL = Duration.ofMillis(500);
     private static final By SEARCH_TOGGLE_BUTTON = By.cssSelector("div.ast-search-menu-icon button.ast-search-submit");
     private static final By SEARCH_FIELD = By.cssSelector("input#search-field.search-field");
     private static final By RESULTS_TITLE = By.cssSelector("h1.page-title");
     private static final List<By> RESULT_LINK_SELECTORS = Arrays.asList(By.cssSelector("article h2.entry-title a"),
         By.cssSelector("h2.entry-title a"), By.cssSelector("h2.wp-block-post-title a"));
+    private static final String AGI_BLOG_URL_KEY = "agi_blog";
 
     private final WebDriver driver;
 
@@ -34,19 +42,24 @@ public class AgiBlogSearchPG extends LoadableComponent<AgiBlogSearchPG> {
     }
 
     public void accessAgiBlog() {
-        this.driver.get(ManagerFileUtils.getUrlFromJson("agi_blog"));
+        this.driver.get(getRequiredAgiBlogBaseUrl());
     }
 
     public void searchFor(String termo) {
+        if (termo == null || termo.isBlank()) {
+            throw new IllegalArgumentException("O termo de busca não pode ser nulo ou vazio.");
+        }
         try {
             WebElement searchField = openSearchField();
             searchField.clear();
             searchField.sendKeys(termo);
             searchField.sendKeys(Keys.ENTER);
-        } catch (RuntimeException ex) {
+            waitSearchResultsPage();
+        } catch (RuntimeException ignored) {
+            // Fallback para reduzir intermitência de UI no modo headless.
             navigateToSearchResults(termo);
+            waitSearchResultsPage();
         }
-        waitSearchResultsPage();
     }
 
     public String getSearchResultsTitle() {
@@ -87,7 +100,12 @@ public class AgiBlogSearchPG extends LoadableComponent<AgiBlogSearchPG> {
         if (currentUrl == null || currentUrl.isBlank()) {
             return "";
         }
-        String query = URI.create(currentUrl).getQuery();
+        String query;
+        try {
+            query = URI.create(currentUrl).getQuery();
+        } catch (IllegalArgumentException ex) {
+            return "";
+        }
         if (query == null || query.isBlank()) {
             return "";
         }
@@ -101,38 +119,49 @@ public class AgiBlogSearchPG extends LoadableComponent<AgiBlogSearchPG> {
     }
 
     private WebElement openSearchField() {
+        Wait<WebDriver> wait = createUiWait();
         List<WebElement> searchFields = this.driver.findElements(SEARCH_FIELD);
         if (!searchFields.isEmpty() && searchFields.getFirst().isDisplayed()) {
-            return WebDriverUtils.getWait().until(ExpectedConditions.elementToBeClickable(SEARCH_FIELD));
+            return wait.until(ExpectedConditions.elementToBeClickable(SEARCH_FIELD));
         }
 
-        WebElement toggleButton = WebDriverUtils.getWait()
-            .until(ExpectedConditions.elementToBeClickable(SEARCH_TOGGLE_BUTTON));
+        WebElement toggleButton = wait.until(ExpectedConditions.elementToBeClickable(SEARCH_TOGGLE_BUTTON));
         ((JavascriptExecutor) this.driver).executeScript("arguments[0].click();", toggleButton);
-        return WebDriverUtils.getWait().until(ExpectedConditions.visibilityOfElementLocated(SEARCH_FIELD));
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(SEARCH_FIELD));
     }
 
     private void waitSearchResultsPage() {
+        Wait<WebDriver> wait = createUiWait();
         try {
-            WebDriverUtils.getWait().until(driver -> {
+            wait.until(driver -> {
                 String currentUrl = driver.getCurrentUrl();
                 return currentUrl != null && currentUrl.contains("?s=");
             });
         } catch (TimeoutException ex) {
-            WebDriverUtils.getWait().until(ExpectedConditions.visibilityOfElementLocated(RESULTS_TITLE));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(RESULTS_TITLE));
         }
-        WebDriverUtils.getWait().until(ExpectedConditions.visibilityOfElementLocated(RESULTS_TITLE));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(RESULTS_TITLE));
+    }
+
+    private Wait<WebDriver> createUiWait() {
+        return new FluentWait<>(this.driver).withTimeout(UI_WAIT_TIMEOUT).pollingEvery(UI_WAIT_POLL)
+            .ignoring(NoSuchElementException.class);
     }
 
     private void navigateToSearchResults(String termo) {
         String encodedTerm = URLEncoder.encode(termo, StandardCharsets.UTF_8);
-        String primaryUrl = String.format("%s?s=%s", ManagerFileUtils.getUrlFromJson("agi_blog"), encodedTerm);
+        String primaryUrl = String.format("%s?s=%s", getRequiredAgiBlogBaseUrl(), encodedTerm);
         String canonicalUrl = String.format("https://blog.agibank.com.br/?s=%s", encodedTerm);
         try {
             this.driver.navigate().to(primaryUrl);
         } catch (RuntimeException ex) {
             this.driver.navigate().to(canonicalUrl);
         }
+    }
+
+    private String getRequiredAgiBlogBaseUrl() {
+        return Objects.requireNonNull(ManagerFileUtils.getUrlFromJson(AGI_BLOG_URL_KEY),
+            "Não foi possível obter a URL base 'agi_blog' no arquivo de configuração.");
     }
 
     private String extractTitle(WebElement link) {
