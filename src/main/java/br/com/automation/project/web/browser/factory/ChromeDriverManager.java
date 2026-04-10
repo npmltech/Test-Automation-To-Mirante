@@ -20,7 +20,6 @@ import java.util.Map;
 public class ChromeDriverManager extends DriverManager {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ChromeDriverManager.class);
-    private final ChromeOptions chromeOptions;
     private final String browserName;
     private ChromeDriverService chromeService;
     private final String driverPathByOprtSysName;
@@ -28,13 +27,13 @@ public class ChromeDriverManager extends DriverManager {
     public ChromeDriverManager(String browserName, String driverPathByOprtSysName) {
         //
         this.driverPathByOprtSysName = driverPathByOprtSysName;
-        this.chromeOptions = new ChromeOptions();
         this.browserName = browserName;
     }
 
     @Override
     public void createDriver() {
         LOGGER.info("Criando instância do ChromeDriver (modo binário local).");
+        ChromeOptions chromeOptions = new ChromeOptions();
         //
         Map<String, Object> prefs = new HashMap<>();
         prefs.put("application_cache_enabled", false);
@@ -57,7 +56,7 @@ public class ChromeDriverManager extends DriverManager {
     @Override
     public void startService() {
         //
-        if (chromeService == null) {
+        if (chromeService == null || !chromeService.isRunning()) {
             try {
                 LOGGER.info("Iniciando serviço do ChromeDriver (modo binário local).");
                 chromeService = new ChromeDriverService.Builder().usingAnyFreePort()
@@ -81,6 +80,7 @@ public class ChromeDriverManager extends DriverManager {
         if (chromeService != null && chromeService.isRunning()) {
             LOGGER.info("Encerrando serviço do ChromeDriver (modo binário local).");
             chromeService.stop();
+            chromeService = null;
         }
     }
 }

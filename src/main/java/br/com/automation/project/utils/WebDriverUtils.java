@@ -20,30 +20,23 @@ import java.time.Duration;
 public class WebDriverUtils {
 
     private static final DriverManager DRIVER_MANAGER;
-    private static final Wait<WebDriver> WAIT;
     static {
         DRIVER_MANAGER = new DriverManagerFactory().executeDriverManager();
-        WAIT = new FluentWait<>(DRIVER_MANAGER.getDriver()).withTimeout(Duration.ofSeconds(20))
-            .pollingEvery(Duration.ofSeconds(5)).ignoring(NoSuchElementException.class);
     }
 
     /**
      * Retorna o {@link DriverManager} atual quando a sessão do driver está ativa.
      */
     public static DriverManager getDriverManager() {
-        DriverManager dvrManager = null;
-        if (((RemoteWebDriver) DRIVER_MANAGER.getDriver()).getSessionId() == null) {
-            return dvrManager;
-        }
-        dvrManager = DRIVER_MANAGER;
-        return dvrManager;
+        return DRIVER_MANAGER;
     }
 
     /**
      * Retorna a instância padrão de espera fluente para o {@link WebDriver}.
      */
     public static Wait<WebDriver> getWait() {
-        return WAIT;
+        return new FluentWait<>(DRIVER_MANAGER.getDriver()).withTimeout(Duration.ofSeconds(20))
+            .pollingEvery(Duration.ofSeconds(1)).ignoring(NoSuchElementException.class);
     }
 
     /**

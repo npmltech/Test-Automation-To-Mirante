@@ -19,19 +19,18 @@ import java.util.Map;
 public class ChromeDriverManager_v2 extends DriverManager {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ChromeDriverManager_v2.class);
-    private final ChromeOptions chromeOptions;
     private final String browserName;
     private ChromeDriverService chromeService;
 
     public ChromeDriverManager_v2(String browserName) {
         //
-        this.chromeOptions = new ChromeOptions();
         this.browserName = browserName;
     }
 
     @Override
     public void createDriver() {
         LOGGER.info("Criando instância do ChromeDriver (modo WebDriverManager).");
+        ChromeOptions chromeOptions = new ChromeOptions();
         //
         Map<String, Object> prefs = new HashMap<>();
         prefs.put("application_cache_enabled", false);
@@ -56,7 +55,7 @@ public class ChromeDriverManager_v2 extends DriverManager {
     @Override
     public void startService() {
         //
-        if (chromeService == null) {
+        if (chromeService == null || !chromeService.isRunning()) {
             try {
                 LOGGER.info("Iniciando serviço do ChromeDriver (modo WebDriverManager).");
                 chromeService = new ChromeDriverService.Builder().usingAnyFreePort()
@@ -79,6 +78,7 @@ public class ChromeDriverManager_v2 extends DriverManager {
         if (chromeService != null && chromeService.isRunning()) {
             LOGGER.info("Encerrando serviço do ChromeDriver (modo WebDriverManager).");
             chromeService.stop();
+            chromeService = null;
         }
     }
 }
